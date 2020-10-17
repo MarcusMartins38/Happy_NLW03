@@ -1,16 +1,10 @@
-import React, { useEffect, useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Dimensions,
-  TouchableOpacity,
-} from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, Text, View, Dimensions } from "react-native";
 import MapView, { Marker, Callout, PROVIDER_GOOGLE } from "react-native-maps";
 import { Feather } from "@expo/vector-icons";
 
 import mapMarker from "../images/map-marker.png";
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { RectButton } from "react-native-gesture-handler";
 import api from "../services/api";
 
@@ -26,14 +20,14 @@ const OrphanagesMap: React.FC = () => {
 
   const [orphanages, setOrphanages] = useState<Orphanage[]>([]);
 
-  useEffect(() => {
+  useFocusEffect(() => {
     api.get("/orphanages").then((response) => {
       setOrphanages(response.data);
     });
-  }, []);
+  });
 
-  function handleNavigateToOrphanageDetails() {
-    navigation.navigate("OrphanageDetails");
+  function handleNavigateToOrphanageDetails(id: number) {
+    navigation.navigate("OrphanageDetails", { id });
   }
 
   function handleNavigateToCreateOrphanage() {
@@ -65,7 +59,10 @@ const OrphanagesMap: React.FC = () => {
               longitude: orphanage.longitude,
             }}
           >
-            <Callout tooltip onPress={handleNavigateToOrphanageDetails}>
+            <Callout
+              tooltip
+              onPress={() => handleNavigateToOrphanageDetails(orphanage.id)}
+            >
               <View style={styles.calloutContainer}>
                 <Text style={styles.calloutText}>{orphanage.name}</Text>
               </View>
@@ -75,7 +72,9 @@ const OrphanagesMap: React.FC = () => {
       </MapView>
 
       <View style={styles.footer}>
-        <Text style={styles.footerText}>2 orfanatos encontrados</Text>
+        <Text style={styles.footerText}>
+          {orphanages.length} orfanatos encontrados
+        </Text>
 
         <RectButton
           style={styles.createOrphanageButton}

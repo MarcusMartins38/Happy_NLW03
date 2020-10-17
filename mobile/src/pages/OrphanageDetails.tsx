@@ -1,77 +1,154 @@
-import React from 'react';
-import { Image, View, ScrollView, Text, StyleSheet, Dimensions } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
-import { Feather, FontAwesome } from '@expo/vector-icons';
+import React, { useEffect, useState } from "react";
+import {
+  Image,
+  View,
+  ScrollView,
+  Text,
+  StyleSheet,
+  Dimensions,
+  Linking,
+} from "react-native";
+import MapView, { Marker } from "react-native-maps";
+import { Feather, FontAwesome } from "@expo/vector-icons";
+import { useRoute } from "@react-navigation/native";
 
-import mapMarkerImg from '../images/map-marker.png';
-import { RectButton } from 'react-native-gesture-handler';
+import mapMarkerImg from "../images/map-marker.png";
+import { RectButton, TouchableOpacity } from "react-native-gesture-handler";
+import api from "../services/api";
+
+interface OrphanageDetailsRouteParams {
+  id: number;
+}
+
+interface Orphanage {
+  id: number;
+  name: string;
+  latitude: number;
+  longitude: number;
+  about: string;
+  instructions: string;
+  opening_hours: string;
+  open_on_weekends: boolean;
+  images: {
+    id: number;
+    url: string;
+  }[];
+}
 
 export default function OrphanageDetails() {
+  const route = useRoute();
+  const [orphanage, setOrphanage] = useState<Orphanage>({} as Orphanage);
+
+  const params = route.params as OrphanageDetailsRouteParams;
+
+  useEffect(() => {
+    api.get(`/orphanage/${params.id}`).then((response) => {
+      setOrphanage(response.data);
+    });
+  }, [params.id]);
+
+  if (!orphanage) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.description}>Carregando...</Text>
+      </View>
+    );
+  }
+
+  function handleOpenGoogleMapRoutes() {
+    Linking.openURL(
+      `https://www.google.com/maps/dir/?api=1&destination=${orphanage?.latitude},${orphanage?.longitude}`
+    );
+  }
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.imagesContainer}>
-        <ScrollView horizontal pagingEnabled>
-          <Image style={styles.image} source={{ uri: 'https://fmnova.com.br/images/noticias/safe_image.jpg' }} />
-          <Image style={styles.image} source={{ uri: 'https://fmnova.com.br/images/noticias/safe_image.jpg' }} />
-          <Image style={styles.image} source={{ uri: 'https://fmnova.com.br/images/noticias/safe_image.jpg' }} />
-        </ScrollView>
+        <ScrollView horizontal pagingEnabled></ScrollView>
       </View>
+
+      {orphanage.images.map((image) => (
+        <Image
+          key={image.id}
+          style={styles.image}
+          source={{
+            uri: image.url,
+          }}
+        />
+      ))}
 
       <View style={styles.detailsContainer}>
         <Text style={styles.title}>Orf. Esperança</Text>
-        <Text style={styles.description}>Presta assistência a crianças de 06 a 15 anos que se encontre em situação de risco e/ou vulnerabilidade social.</Text>
-      
+        <Text style={styles.description}>{orphanage.about}</Text>
+
         <View style={styles.mapContainer}>
-          <MapView 
+          <MapView
             initialRegion={{
-              latitude: -27.2092052,
-              longitude: -49.6401092,
+              latitude: orphanage.latitude,
+              longitude: orphanage.longitude,
               latitudeDelta: 0.008,
               longitudeDelta: 0.008,
-            }} 
+            }}
             zoomEnabled={false}
             pitchEnabled={false}
             scrollEnabled={false}
             rotateEnabled={false}
             style={styles.mapStyle}
           >
-            <Marker 
+            <Marker
               icon={mapMarkerImg}
-              coordinate={{ 
-                latitude: -27.2092052,
-                longitude: -49.6401092
+              coordinate={{
+                latitude: orphanage.latitude,
+                longitude: orphanage.longitude,
               }}
             />
           </MapView>
 
-          <View style={styles.routesContainer}>
+          <TouchableOpacity
+            onPress={handleOpenGoogleMapRoutes}
+            style={styles.routesContainer}
+          >
             <Text style={styles.routesText}>Ver rotas no Google Maps</Text>
-          </View>
+          </TouchableOpacity>
         </View>
-      
+
         <View style={styles.separator} />
 
         <Text style={styles.title}>Instruções para visita</Text>
-        <Text style={styles.description}>Venha como se sentir a vontade e traga muito amor e paciência para dar.</Text>
+        <Text style={styles.description}>{orphanage.instructions}</Text>
 
         <View style={styles.scheduleContainer}>
           <View style={[styles.scheduleItem, styles.scheduleItemBlue]}>
             <Feather name="clock" size={40} color="#2AB5D1" />
-            <Text style={[styles.scheduleText, styles.scheduleTextBlue]}>Segunda à Sexta 8h às 18h</Text>
+            <Text style={[styles.scheduleText, styles.scheduleTextBlue]}>
+              Segunda à Sexta {orphanage.opening_hours}
+            </Text>
           </View>
-          <View style={[styles.scheduleItem, styles.scheduleItemGreen]}>
-            <Feather name="info" size={40} color="#39CC83" />
-            <Text style={[styles.scheduleText, styles.scheduleTextGreen]}>Atendemos fim de semana</Text>
-          </View>
+
+          {orphanage.open_on_weekends ? (
+            <View style={[styles.scheduleItem, styles.scheduleItemGreen]}>
+              <Feather name="info" size={40} color="#39CC83" />
+              <Text style={[styles.scheduleText, styles.scheduleTextGreen]}>
+                Atendemos fim de semana
+              </Text>
+            </View>
+          ) : (
+            <View style={[styles.scheduleItem, styles.scheduleItemRed]}>
+              <Feather name="info" size={40} color="#FF669D" />
+              <Text style={[styles.scheduleTextRed, styles.scheduleItemRed]}>
+                Não atendemos fim de semana
+              </Text>
+            </View>
+          )}
         </View>
 
-        <RectButton style={styles.contactButton} onPress={() => {}}>
+        {/* <RectButton style={styles.contactButton} onPress={() => {}}>
           <FontAwesome name="whatsapp" size={24} color="#FFF" />
           <Text style={styles.contactButtonText}>Entrar em contato</Text>
-        </RectButton>
+        </RectButton> */}
       </View>
     </ScrollView>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -84,9 +161,9 @@ const styles = StyleSheet.create({
   },
 
   image: {
-    width: Dimensions.get('window').width,
+    width: Dimensions.get("window").width,
     height: 240,
-    resizeMode: 'cover',
+    resizeMode: "cover",
   },
 
   detailsContainer: {
@@ -94,104 +171,115 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    color: '#4D6F80',
+    color: "#4D6F80",
     fontSize: 30,
-    fontFamily: 'Nunito_700Bold',
+    fontFamily: "Nunito_700Bold",
   },
 
   description: {
-    fontFamily: 'Nunito_600SemiBold',
-    color: '#5c8599',
+    fontFamily: "Nunito_600SemiBold",
+    color: "#5c8599",
     lineHeight: 24,
     marginTop: 16,
   },
 
   mapContainer: {
     borderRadius: 20,
-    overflow: 'hidden',
+    overflow: "hidden",
     borderWidth: 1.2,
-    borderColor: '#B3DAE2',
+    borderColor: "#B3DAE2",
     marginTop: 40,
-    backgroundColor: '#E6F7FB',
+    backgroundColor: "#E6F7FB",
   },
 
   mapStyle: {
-    width: '100%',
+    width: "100%",
     height: 150,
   },
 
   routesContainer: {
     padding: 16,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
 
   routesText: {
-    fontFamily: 'Nunito_700Bold',
-    color: '#0089a5'
+    fontFamily: "Nunito_700Bold",
+    color: "#0089a5",
   },
 
   separator: {
     height: 0.8,
-    width: '100%',
-    backgroundColor: '#D3E2E6',
+    width: "100%",
+    backgroundColor: "#D3E2E6",
     marginVertical: 40,
   },
 
   scheduleContainer: {
     marginTop: 24,
-    flexDirection: 'row',
-    justifyContent: 'space-between'
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 
   scheduleItem: {
-    width: '48%',
+    width: "48%",
     padding: 20,
   },
 
   scheduleItemBlue: {
-    backgroundColor: '#E6F7FB',
+    backgroundColor: "#E6F7FB",
     borderWidth: 1,
-    borderColor: '#B3DAE2',
+    borderColor: "#B3DAE2",
     borderRadius: 20,
   },
 
   scheduleItemGreen: {
-    backgroundColor: '#EDFFF6',
+    backgroundColor: "#EDFFF6",
     borderWidth: 1,
-    borderColor: '#A1E9C5',
+    borderColor: "#A1E9C5",
+    borderRadius: 20,
+  },
+
+  scheduleItemRed: {
+    backgroundColor: "#FeF6F9",
+    borderWidth: 1,
+    borderColor: "#FFBCD4",
     borderRadius: 20,
   },
 
   scheduleText: {
-    fontFamily: 'Nunito_600SemiBold',
+    fontFamily: "Nunito_600SemiBold",
     fontSize: 16,
     lineHeight: 24,
     marginTop: 20,
   },
 
   scheduleTextBlue: {
-    color: '#5C8599'
+    color: "#5C8599",
   },
 
   scheduleTextGreen: {
-    color: '#37C77F'
+    color: "#37C77F",
+  },
+
+  scheduleTextRed: {
+    color: "#FF669D",
   },
 
   contactButton: {
-    backgroundColor: '#3CDC8C',
+    backgroundColor: "#3CDC8C",
     borderRadius: 20,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
     height: 56,
     marginTop: 40,
   },
 
   contactButtonText: {
-    fontFamily: 'Nunito_800ExtraBold',
-    color: '#FFF',
+    fontFamily: "Nunito_800ExtraBold",
+    color: "#FFF",
     fontSize: 16,
     marginLeft: 16,
-  }
-})
+  },
+});
