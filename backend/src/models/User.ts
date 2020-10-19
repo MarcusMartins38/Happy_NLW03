@@ -1,8 +1,8 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity('users')
+@Entity("users")
 export default class User {
-  @PrimaryGeneratedColumn('increment')
+  @PrimaryGeneratedColumn("uuid")
   id: number;
 
   @Column()

@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import { sign } from "jsonwebtoken";
 import { getRepository } from "typeorm";
 
+import authConfig from "../config/auth";
 import User from "../models/User";
 
 export default {
@@ -27,9 +28,9 @@ export default {
         .json({ Message: "Incorrect email/password combination." });
     }
 
-    const token = sign({}, "d377ac48d8261f59d032f91db5d49968", {
+    const token = sign({}, authConfig.jwt.secret, {
       subject: String(user.id),
-      expiresIn: "1d",
+      expiresIn: authConfig.jwt.expiresIn,
     });
 
     return response.status(200).json({ user, token });
