@@ -1,15 +1,18 @@
 import React, { FormEvent, useCallback, useState } from "react";
 
-import "../styles/pages/signin.css";
-import LogotipoImg from "../images/Logotipo.svg";
-import { Link, useHistory } from "react-router-dom";
-import { FiArrowLeft } from "react-icons/fi";
+import { Link } from "react-router-dom";
+import { FiArrowLeft, FiCheck } from "react-icons/fi";
 import { useDispatch } from "react-redux";
 import { checkIfAlreadyLogged } from "../store/modules/user/actions";
+import { motion } from "framer-motion";
+
+import "../styles/pages/signin.css";
+import LogotipoImg from "../images/Logotipo.svg";
 
 const SignIn: React.FC = () => {
-  const history = useHistory();
   const dispatch = useDispatch();
+
+  const [isChecked, setIsChecked] = useState(false);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -30,16 +33,26 @@ const SignIn: React.FC = () => {
 
   return (
     <div className="page-signin">
-      <div className="logo-container">
+      <motion.div
+        initial={{ opacity: 0.5, x: -100 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.5 }}
+        className="logo-container"
+      >
         <img src={LogotipoImg} alt="Happy" />
 
         <div className="estado-cidade">
           <strong>Porto Velho</strong>
           <span>Rondônia</span>
         </div>
-      </div>
+      </motion.div>
 
-      <div className="form-container">
+      <motion.div
+        initial={{ opacity: 0.5, y: -150 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="form-container"
+      >
         <Link className="goback-button" type="button" to="/">
           <FiArrowLeft size={24} color="#12afcb" />
         </Link>
@@ -68,8 +81,26 @@ const SignIn: React.FC = () => {
 
           <div className="options">
             <div>
-              <input type="checkbox" id="lembrar" />
-              <label htmlFor="lembrar">Lembrar-me</label>
+              <input
+                type="checkbox"
+                id="lembrar"
+                style={{ cursor: "pointer" }}
+                onChange={() => setIsChecked(!isChecked)}
+                checked={isChecked}
+              />
+              {isChecked && (
+                <FiCheck
+                  size={24}
+                  style={{
+                    background: "#37C77F",
+                    position: "absolute",
+                    borderRadius: "2px",
+                  }}
+                />
+              )}
+              <label htmlFor="lembrar" style={{ cursor: "pointer" }}>
+                Lembrar-me
+              </label>
             </div>
 
             <Link to="/forgot-password">Esqueci minha senha</Link>
@@ -88,7 +119,7 @@ const SignIn: React.FC = () => {
             Entrar
           </button>
         </form>
-      </div>
+      </motion.div>
     </div>
   );
 };

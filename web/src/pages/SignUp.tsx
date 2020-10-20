@@ -5,6 +5,7 @@ import LogotipoImg from "../images/Logotipo.svg";
 import api from "../services/api";
 import { Link, useHistory } from "react-router-dom";
 import { FiArrowLeft } from "react-icons/fi";
+import { motion } from "framer-motion";
 
 const SignUp: React.FC = () => {
   const history = useHistory();
@@ -35,8 +36,13 @@ const SignUp: React.FC = () => {
   );
 
   return (
-    <div className="page-signup">
-      <div className="form-container">
+    <div className="page-signup" style={{ overflow: "hidden" }}>
+      <motion.div
+        initial={{ opacity: 0.5, y: -150 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="form-container"
+      >
         <Link className="goback-button" type="button" to="/signin">
           <FiArrowLeft size={24} color="#12afcb" />
         </Link>
@@ -86,16 +92,21 @@ const SignUp: React.FC = () => {
             Registrar-se
           </button>
         </form>
-      </div>
+      </motion.div>
 
-      <div className="logo-container">
+      <motion.div
+        initial={{ opacity: 0.5, x: 100 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.5 }}
+        className="logo-container"
+      >
         <img src={LogotipoImg} alt="Happy" />
 
         <div className="estado-cidade">
           <strong>Porto Velho</strong>
           <span>Rondônia</span>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };
