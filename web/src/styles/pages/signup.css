@@ -65,8 +65,6 @@
   color: #8fa7b3;
   margin-left: 24px;
   line-height: 24px;
-
-  transition: color 1s;
 }
 
 .page-signup .form-container form .input-block:focus-within label {

@@ -103,6 +103,11 @@
   line-height: 24px;
 }
 
+.page-signin .form-container form .input-block:focus-within label {
+  color: #314049;
+  font-weight: 800;
+}
+
 .page-signin .form-container form .input-block input,
 .page-signin .form-container form .input-block textarea {
   width: 100%;
