@@ -2,12 +2,14 @@ import React, { FormEvent, useCallback, useState } from "react";
 
 import "../styles/pages/signin.css";
 import LogotipoImg from "../images/Logotipo.svg";
-import api from "../services/api";
 import { Link, useHistory } from "react-router-dom";
 import { FiArrowLeft } from "react-icons/fi";
+import { useDispatch } from "react-redux";
+import { checkIfAlreadyLogged } from "../store/modules/user/actions";
 
 const SignIn: React.FC = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -21,13 +23,7 @@ const SignIn: React.FC = () => {
         password,
       };
 
-      try {
-        await api.post("/sessions", data);
-
-        history.push("/app");
-      } catch (err) {
-        alert("Falha ao logar");
-      }
+      dispatch(checkIfAlreadyLogged(data));
     },
     [email, password]
   );

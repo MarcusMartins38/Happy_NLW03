@@ -8,6 +8,9 @@ import Sidebar from "../components/Sidebar";
 import mapIcon from "../utils/mapIcon";
 import api from "../services/api";
 import { useParams } from "react-router-dom";
+import { IState } from "../store";
+import { UserData } from "../store/modules/user/types";
+import { useSelector } from "react-redux";
 
 interface Orphanage {
   name: string;
@@ -28,6 +31,8 @@ interface OrphanageParams {
 }
 
 export default function Orphanage() {
+  const userData = useSelector<IState, UserData>((state) => state.userReducer);
+
   const params = useParams<OrphanageParams>();
   const [orphanage, setOrphanage] = useState<Orphanage>();
   const [activeImageIndex, setActiveImageIndex] = useState(0);
@@ -51,7 +56,17 @@ export default function Orphanage() {
       <main>
         <div className="orphanage-details">
           <img
-            src={orphanage.images[activeImageIndex].url}
+            src={
+              orphanage.images[activeImageIndex]?.url
+                ? orphanage.images[activeImageIndex].url
+                : "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/600px-No_image_available.svg.png"
+            }
+            style={{
+              height: orphanage.images[activeImageIndex]?.url ? "" : "200px",
+              margin: orphanage.images[activeImageIndex]?.url
+                ? ""
+                : "16px auto 0 auto",
+            }}
             alt={orphanage.name}
           />
 
