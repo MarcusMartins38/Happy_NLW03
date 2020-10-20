@@ -36,10 +36,10 @@ function Landing() {
 
         <div className="location">
           <strong>Porto Velho</strong>
-          <span>Rôndonia</span>
+          <span>Rondônia</span>
         </div>
 
-        <Link to="/app" className="enter-app">
+        <Link to="/signin" className="enter-app">
           <FiArrowRight size={26} color="rgba(0, 0, 0, 0.6)" />
         </Link>
       </motion.div>

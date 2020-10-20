@@ -1,55 +1,57 @@
 import React, { FormEvent, useCallback, useState } from "react";
 
-import "../styles/pages/signin.css";
+import "../styles/pages/signup.css";
 import LogotipoImg from "../images/Logotipo.svg";
 import api from "../services/api";
 import { Link, useHistory } from "react-router-dom";
 import { FiArrowLeft } from "react-icons/fi";
 
-const SignIn: React.FC = () => {
+const SignUp: React.FC = () => {
   const history = useHistory();
 
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = useCallback(
-    async (e: FormEvent) => {
+    (e: FormEvent) => {
       e.preventDefault();
 
       const data = {
+        name,
         email,
         password,
       };
 
       try {
-        await api.post("/sessions", data);
+        api.post("/user", data);
 
-        history.push("/app");
+        history.push("/signin");
       } catch (err) {
-        alert("Falha ao logar");
+        alert("Falha ao registrar-se");
       }
     },
     [email, password]
   );
 
   return (
-    <div className="page-signin">
-      <div className="logo-container">
-        <img src={LogotipoImg} alt="Happy" />
-
-        <div className="estado-cidade">
-          <strong>Porto Velho</strong>
-          <span>Rondônia</span>
-        </div>
-      </div>
-
+    <div className="page-signup">
       <div className="form-container">
-        <Link className="goback-button" type="button" to="/">
+        <Link className="goback-button" type="button" to="/signin">
           <FiArrowLeft size={24} color="#12afcb" />
         </Link>
 
         <form onSubmit={handleSubmit}>
-          <h2>Fazer login</h2>
+          <h2>Registrar-se</h2>
+
+          <div className="input-block">
+            <label htmlFor="name">Nome</label>
+            <input
+              id="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </div>
 
           <div className="input-block">
             <label htmlFor="email">E-mail</label>
@@ -70,31 +72,32 @@ const SignIn: React.FC = () => {
             />
           </div>
 
-          <div className="options">
-            <div>
-              <input type="checkbox" id="lembrar" />
-              <label htmlFor="lembrar">Lembrar-me</label>
-            </div>
-
-            <Link to="/forgot-password">Esqueci minha senha</Link>
-          </div>
-
-          <Link className="register" to="/signup">
-            Registrar-se
-          </Link>
-
           <button
             className="confirm-button"
             type="submit"
-            style={{ opacity: email === "" || password === "" ? 0.5 : "" }}
-            disabled={email === "" || password === "" ? true : false}
+            style={{
+              opacity:
+                name === "" || email === "" || password === "" ? 0.5 : "",
+            }}
+            disabled={
+              name === "" || email === "" || password === "" ? true : false
+            }
           >
-            Entrar
+            Registrar-se
           </button>
         </form>
+      </div>
+
+      <div className="logo-container">
+        <img src={LogotipoImg} alt="Happy" />
+
+        <div className="estado-cidade">
+          <strong>Porto Velho</strong>
+          <span>Rondônia</span>
+        </div>
       </div>
     </div>
   );
 };
 
-export default SignIn;
+export default SignUp;

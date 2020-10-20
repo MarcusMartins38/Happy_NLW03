@@ -56,7 +56,7 @@ function OrphanagesMap() {
           transition={{ duration: 1 }}
         >
           <strong>Porto Velho</strong>
-          <span>Rôndonia</span>
+          <span>Rondônia</span>
 
           <button type="button" onClick={goBack}>
             <FiArrowLeft size={24} color="#FFF" />

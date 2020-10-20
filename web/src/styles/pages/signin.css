@@ -38,6 +38,36 @@
   max-width: 600px;
   width: 100%;
   height: 100%;
+
+  position: relative;
+}
+
+.page-signin .form-container .goback-button {
+  width: 48px;
+  height: 48px;
+
+  position: absolute;
+  right: 0;
+
+  margin-right: 43px;
+  margin-top: 40px;
+
+  border: 0;
+
+  background: #d7e4ea;
+  border-radius: 16px;
+
+  cursor: pointer;
+
+  transition: background-color 0.2s;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.page-signin .form-container .goback-button:hover {
+  background: #afc9d5;
 }
 
 .page-signin .form-container form {
