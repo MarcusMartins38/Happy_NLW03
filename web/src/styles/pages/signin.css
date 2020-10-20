@@ -1,0 +1,155 @@
+.page-signin {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  height: 100vh;
+
+  margin: 0 auto;
+}
+
+.page-signin .logo-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 100%;
+
+  background: linear-gradient(329.54deg, #29b6d1 0%, #00c7c7 100%);
+}
+
+.page-signin .logo-container .estado-cidade {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  font-size: 24px;
+  margin-top: 100px;
+}
+
+.page-signin .logo-container .estado-cidade strong {
+  font-weight: 800;
+}
+
+/* Container Direita */
+.page-signin .form-container {
+  max-width: 600px;
+  width: 100%;
+  height: 100%;
+}
+
+.page-signin .form-container form {
+  height: 100%;
+
+  padding: 0 80px;
+
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.page-signin .form-container form h2 {
+  margin-bottom: 40px;
+  color: #5c8599;
+}
+
+.page-signin .form-container form .input-block + .input-block {
+  margin-top: 24px;
+}
+
+.page-signin .form-container form .input-block label {
+  display: flex;
+  color: #8fa7b3;
+  margin-bottom: 8px;
+  line-height: 24px;
+}
+
+.page-signin .form-container form .input-block label span {
+  font-size: 14px;
+  color: #8fa7b3;
+  margin-left: 24px;
+  line-height: 24px;
+}
+
+.page-signin .form-container form .input-block input,
+.page-signin .form-container form .input-block textarea {
+  width: 100%;
+  background: #f5f8fa;
+  border: 1px solid #d3e2e5;
+  border-radius: 20px;
+  outline: none;
+  color: #5c8599;
+}
+
+.page-signin .form-container form .input-block input {
+  height: 64px;
+  padding: 0 16px;
+}
+
+.page-signin .form-container form .options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-top: 24px;
+  margin-bottom: 12px;
+}
+
+.page-signin .form-container form .options div {
+  display: flex;
+  align-items: center;
+}
+
+.page-signin .form-container form .options div label {
+  color: #8fa7b2;
+  size: 16px;
+  font-weight: 600;
+
+  margin-left: 16px;
+}
+
+.page-signin .form-container form .options div input {
+  width: 24px;
+  height: 24px;
+}
+
+.page-signin .form-container form a {
+  color: #8fa7b2;
+  size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.page-signin .form-container form a:hover {
+  color: #5b7886;
+}
+
+.page-signin .form-container form a.register {
+  width: 110px;
+}
+
+.page-signin .form-container form button.confirm-button {
+  margin-top: 40px;
+
+  width: 100%;
+  height: 64px;
+  border: 0;
+  cursor: pointer;
+  background: #3cdc8c;
+  border-radius: 20px;
+  color: #ffffff;
+  font-weight: 800;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transition: background-color 0.2s;
+}
+
+.page-signin .form-container form button.confirm-button:hover {
+  background: #36cf82;
+}
