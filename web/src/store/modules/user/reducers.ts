@@ -30,6 +30,9 @@ const userReducer: Reducer<UserData> = (state = INITIAL_STATE, action) => {
     }
 
     case ActionTypes.userSignOut: {
+      localStorage.removeItem("@Happy:token");
+      localStorage.removeItem("@Happy:user");
+
       return INITIAL_STATE;
     }
 

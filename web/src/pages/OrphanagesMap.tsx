@@ -8,9 +8,11 @@ import mapMarkerImg from "../images/map-marker.svg";
 
 import "../styles/pages/orphanages-map.css";
 import mapIcon from "../utils/mapIcon";
-import { FiArrowLeft } from "react-icons/fi";
+import { FiPower } from "react-icons/fi";
 import api from "../services/api";
 import { motion } from "framer-motion";
+import { useDispatch } from "react-redux";
+import { SignOut } from "../store/modules/user/actions";
 
 interface Orphanage {
   id: number;
@@ -19,8 +21,9 @@ interface Orphanage {
   longitude: number;
 }
 
-function OrphanagesMap() {
-  const { goBack } = useHistory();
+const OrphanagesMap: React.FC = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   const [orphanages, setOrphanages] = useState<Orphanage[]>([]);
 
@@ -29,6 +32,11 @@ function OrphanagesMap() {
       setOrphanages(response.data);
     });
   }, []);
+
+  const handleSignOut = () => {
+    dispatch(SignOut());
+    history.push("/");
+  };
 
   return (
     <div id="page-map">
@@ -58,8 +66,8 @@ function OrphanagesMap() {
           <strong>Porto Velho</strong>
           <span>Rondônia</span>
 
-          <button type="button" onClick={goBack}>
-            <FiArrowLeft size={24} color="#FFF" />
+          <button type="button" onClick={handleSignOut}>
+            <FiPower size={24} color="#FFF" />
           </button>
         </motion.footer>
       </aside>
@@ -97,6 +105,6 @@ function OrphanagesMap() {
       </Link>
     </div>
   );
-}
+};
 
 export default OrphanagesMap;
