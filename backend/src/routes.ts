@@ -10,11 +10,16 @@ import ensureAuthenticated from "./middlewares/ensureAuthenticated";
 const routes = Router();
 const upload = multer(uploadConfig);
 
-routes.get("/orphanages", OrphanagesController.index);
-routes.get("/orphanages/:id", ensureAuthenticated, OrphanagesController.show);
-routes.post("/orphanages", upload.array("images"), OrphanagesController.create);
-
 routes.post("/user", UsersController.create);
 routes.post("/sessions", SessionController.create);
+
+routes.get("/orphanages", OrphanagesController.index);
+routes.get("/orphanages/:id", ensureAuthenticated, OrphanagesController.show);
+routes.post(
+  "/orphanages",
+  ensureAuthenticated,
+  upload.array("images"),
+  OrphanagesController.create
+);
 
 export default routes;
