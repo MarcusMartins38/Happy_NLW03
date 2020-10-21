@@ -2,12 +2,13 @@ import React from "react";
 import { BrowserRouter, Switch } from "react-router-dom";
 import Route from "./Routes";
 
-import CreateOrphanage from "../pages/CreateOrphanage";
+import CreateOrphanage from "../pages/CreateOrphanage/CreateOrphanage";
 import Landing from "../pages/Landing";
 import Orphanage from "../pages/Orphanage";
 import OrphanagesMap from "../pages/OrphanagesMap";
 import SignIn from "../pages/SignIn";
 import SignUp from "../pages/SignUp";
+import CreateSuccess from "../pages/CreateOrphanage/CreateSuccess";
 
 function Routes() {
   return (
@@ -23,6 +24,11 @@ function Routes() {
         <Route
           path="/orphanages/create"
           component={CreateOrphanage}
+          isPrivate
+        />
+        <Route
+          path="/orphanages/create-success"
+          component={CreateSuccess}
           isPrivate
         />
         <Route path="/orphanages/:id" component={Orphanage} isPrivate />

@@ -2,7 +2,7 @@ import React from "react";
 import MockAdapter from "axios-mock-adapter";
 import api from "../../services/api";
 import { fireEvent, render } from "@testing-library/react";
-import CreateOrphanage from "../../pages/CreateOrphanage";
+import CreateOrphanage from "../../pages/CreateOrphanage/CreateOrphanage";
 
 const mockedHistoryPush = jest.fn();
 

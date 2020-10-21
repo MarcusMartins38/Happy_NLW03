@@ -43,7 +43,7 @@ export default {
 
     await usersRepository.save(user);
 
-    delete user.password;
+    // delete user.password;
 
     return response.status(201).json(user);
   },

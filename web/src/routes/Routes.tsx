@@ -22,13 +22,13 @@ const Route: React.FC<RouteProps> = ({
   const userData = useSelector<IState, UserData>((state) => state.userReducer);
   let userExists = false;
 
+  console.log(userData.token);
+
   if (userData.token === "") {
     userExists = false;
   } else {
     userExists = true;
   }
-
-  console.log(userData.user);
 
   return (
     <ReactDOMRoute

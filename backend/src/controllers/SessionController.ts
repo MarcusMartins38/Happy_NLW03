@@ -33,7 +33,7 @@ export default {
       expiresIn: authConfig.jwt.expiresIn,
     });
 
-    delete user.password;
+    // delete user.password;
 
     return response.status(200).json({ user, token });
   },

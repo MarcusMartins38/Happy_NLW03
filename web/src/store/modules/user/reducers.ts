@@ -2,13 +2,13 @@ import { Reducer } from "redux";
 import api from "../../../services/api";
 import { ActionTypes, UserData } from "./types";
 
-const INITIAL_STATE: UserData = {
+const token = localStorage.getItem("@Happy:token");
+const user = localStorage.getItem("@Happy:user");
+
+let INITIAL_STATE: UserData = {
   user: {},
   token: "",
 };
-
-const token = localStorage.getItem("@Happy:token");
-const user = localStorage.getItem("@Happy:user");
 
 if (token && user) {
   api.defaults.headers.authorization = `Bearer ${token}`;
@@ -37,7 +37,7 @@ const userReducer: Reducer<UserData> = (state = INITIAL_STATE, action) => {
     }
 
     default: {
-      return { ...state, user: {}, token: "" };
+      return { ...state };
     }
   }
 };
