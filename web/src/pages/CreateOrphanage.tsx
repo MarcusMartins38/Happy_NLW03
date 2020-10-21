@@ -129,7 +129,7 @@ export default function CreateOrphanage() {
 
               <div className="images-container">
                 {previewImages.map((image) => {
-                  return <img key={image} src={image} alt={name} />;
+                  return <img src={image} alt={name} />;
                 })}
 
                 <label htmlFor="image[]" className="new-image">

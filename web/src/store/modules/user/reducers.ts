@@ -37,7 +37,7 @@ const userReducer: Reducer<UserData> = (state = INITIAL_STATE, action) => {
     }
 
     default: {
-      return state;
+      return { ...state, user: {}, token: "" };
     }
   }
 };

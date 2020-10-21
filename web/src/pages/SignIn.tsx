@@ -84,9 +84,13 @@ const SignIn: React.FC = () => {
               <input
                 type="checkbox"
                 id="lembrar"
-                style={{ cursor: "pointer" }}
                 onChange={() => setIsChecked(!isChecked)}
                 checked={isChecked}
+                style={{
+                  cursor: "pointer",
+                  opacity: isChecked ? "0" : "",
+                  zIndex: 1,
+                }}
               />
               {isChecked && (
                 <FiCheck
