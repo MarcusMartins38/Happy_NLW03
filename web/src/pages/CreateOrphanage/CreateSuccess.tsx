@@ -4,18 +4,24 @@ import "../../styles/pages/CreateOrphanage/create-success.css";
 
 import CreateSuccessImg from "../../images/CreateSuccess.svg";
 import { useHistory } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const CreateSuccess: React.FC = () => {
   const history = useHistory();
 
   return (
-    <div className="page-create-success">
+    <motion.div
+      initial={{ opacity: 0.4 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.6 }}
+      className="page-create-success"
+    >
       <div className="container">
         <div className="information-button">
           <h1>Ebaaa!</h1>
           <p>
-            O cadastro deu certo e foi enviado ao administrador para ser
-            aprovado. Agora é só esperar :)
+            O cadastro deu certo e foi marcado sua localização no mapa . Agora é
+            só divulgar e comemorar :)
           </p>
 
           <button
@@ -26,9 +32,15 @@ const CreateSuccess: React.FC = () => {
           </button>
         </div>
 
-        <img src={CreateSuccessImg} alt="Create Success Img" />
+        <motion.img
+          initial={{ y: -1000 }}
+          animate={{ y: 0 }}
+          transition={{ delay: 0.5 }}
+          src={CreateSuccessImg}
+          alt="Create Success Img"
+        />
       </div>
-    </div>
+    </motion.div>
   );
 };
 
