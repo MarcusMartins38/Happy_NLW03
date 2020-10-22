@@ -11,10 +11,17 @@ const routes = Router();
 const upload = multer(uploadConfig);
 
 routes.post("/user", UsersController.create);
+
 routes.get(
   "/user/orphanages",
   ensureAuthenticated,
   UsersController.indexUserOrphanages
+);
+routes.post(
+  "/user/orphanages",
+  ensureAuthenticated,
+  upload.array("images"),
+  OrphanagesController.create
 );
 routes.delete(
   "/user/orphanages/:id",
@@ -26,11 +33,5 @@ routes.post("/sessions", SessionController.create);
 
 routes.get("/orphanages", OrphanagesController.index);
 routes.get("/orphanages/:id", ensureAuthenticated, OrphanagesController.show);
-routes.post(
-  "/orphanages",
-  ensureAuthenticated,
-  upload.array("images"),
-  OrphanagesController.create
-);
 
 export default routes;
