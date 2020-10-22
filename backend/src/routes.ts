@@ -11,6 +11,12 @@ const routes = Router();
 const upload = multer(uploadConfig);
 
 routes.post("/user", UsersController.create);
+routes.get(
+  "/user/orphanages",
+  ensureAuthenticated,
+  UsersController.indexUserOrphanages
+);
+
 routes.post("/sessions", SessionController.create);
 
 routes.get("/orphanages", OrphanagesController.index);

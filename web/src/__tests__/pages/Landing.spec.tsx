@@ -12,6 +12,6 @@ describe("Landing Page", () => {
   it("should be able to navigate to OrphanagesMap", () => {
     const { debug } = render(<Landing />);
 
-    debug();
+    // debug();
   });
 });

@@ -29,7 +29,8 @@ const OrphanagesMap: React.FC = () => {
 
   useEffect(() => {
     api.get("/orphanages").then((response) => {
-      setOrphanages(response.data);
+      // setOrphanages(response.data);
+      console.log(response.data);
     });
   }, []);
 

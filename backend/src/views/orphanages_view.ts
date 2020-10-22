@@ -1,10 +1,11 @@
-import Orphanage from '../models/Orphanage';
-import imagesView from './images_view'
+import Orphanage from "../models/Orphanage";
+import imagesView from "./images_view";
 
 export default {
   render(orphanage: Orphanage) {
     return {
       id: orphanage.id,
+      user_id: orphanage.user.id,
       name: orphanage.name,
       latitude: orphanage.latitude,
       longitude: orphanage.longitude,
@@ -17,6 +18,6 @@ export default {
   },
 
   renderMany(orphanages: Orphanage[]) {
-    return orphanages.map(orphanage => this.render(orphanage));
-  }
-}
+    return orphanages.map((orphanage) => this.render(orphanage));
+  },
+};

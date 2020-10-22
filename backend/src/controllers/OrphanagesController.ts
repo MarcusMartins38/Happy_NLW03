@@ -1,16 +1,17 @@
-import { Request, Response } from 'express';
-import { getRepository } from 'typeorm';
-import orphanageView from '../views/orphanages_view';
-import * as Yup from 'yup';
+import { Request, Response } from "express";
+import { getRepository } from "typeorm";
+import orphanageView from "../views/orphanages_view";
+import * as Yup from "yup";
 
-import Orphanage from '../models/Orphanage';
+import Orphanage from "../models/Orphanage";
+import User from "../models/User";
 
 export default {
   async index(request: Request, response: Response) {
     const orphanagesRepository = getRepository(Orphanage);
 
     const orphanages = await orphanagesRepository.find({
-      relations: ['images']
+      relations: ["images", "user"],
     });
 
     return response.json(orphanageView.renderMany(orphanages));
@@ -22,7 +23,7 @@ export default {
     const orphanagesRepository = getRepository(Orphanage);
 
     const orphanage = await orphanagesRepository.findOneOrFail(id, {
-      relations: ['images']
+      relations: ["images", "user"],
     });
 
     return response.json(orphanageView.render(orphanage));
@@ -36,15 +37,23 @@ export default {
       about,
       instructions,
       opening_hours,
-      open_on_weekends
+      open_on_weekends,
     } = request.body;
-  
+
+    const user_id = request.user.id;
+
+    const userRepository = getRepository(User);
+    const user = await userRepository.findOne({ where: { id: user_id } });
+    if (!user) {
+      return response.status(500).json({ Message: "This user not exists" });
+    }
+
     const orphanagesRepository = getRepository(Orphanage);
 
-    const  requestImages = request.files as Express.Multer.File[];
-    const images = requestImages.map(image => {
-      return { path: image.filename }
-    })
+    const requestImages = request.files as Express.Multer.File[];
+    const images = requestImages.map((image) => {
+      return { path: image.filename };
+    });
 
     const data = {
       name,
@@ -53,8 +62,9 @@ export default {
       about,
       instructions,
       opening_hours,
-      open_on_weekends: open_on_weekends === 'true',
-      images
+      open_on_weekends: open_on_weekends === "true",
+      user,
+      images,
     };
 
     const schema = Yup.object().shape({
@@ -67,20 +77,21 @@ export default {
       open_on_weekends: Yup.boolean().required(),
       images: Yup.array(
         Yup.object().shape({
-        path: Yup.string().required()
+          path: Yup.string().required(),
         })
-      )
+      ),
     });
-
 
     await schema.validate(data, {
       abortEarly: false,
     });
 
     const orphanage = orphanagesRepository.create(data);
-  
+
     await orphanagesRepository.save(orphanage);
-  
+
+    delete orphanage.user.password;
+
     return response.status(201).json(orphanage);
-  }
-}
+  },
+};
