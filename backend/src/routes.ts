@@ -16,6 +16,11 @@ routes.get(
   ensureAuthenticated,
   UsersController.indexUserOrphanages
 );
+routes.delete(
+  "/user/orphanages/:id",
+  ensureAuthenticated,
+  UsersController.deleteOrphanage
+);
 
 routes.post("/sessions", SessionController.create);
 

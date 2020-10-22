@@ -8,6 +8,34 @@ import orphanageView from "../views/orphanages_view";
 import Orphanage from "../models/Orphanage";
 
 export default {
+  async deleteOrphanage(request: Request, response: Response) {
+    const { id } = request.params;
+
+    const user_id = request.user.id;
+
+    const orphanagesRepository = getRepository(Orphanage);
+    const findId = await orphanagesRepository.findOne({
+      relations: ["images", "user"],
+      where: { id },
+    });
+
+    if (!findId) {
+      return response
+        .status(500)
+        .json({ Message: "This Orphanage Id note exists" });
+    }
+
+    if (String(findId.user.id) !== user_id) {
+      return response
+        .status(500)
+        .json({ Message: "You are not the creator of this orphanage " });
+    }
+
+    await orphanagesRepository.delete(id);
+
+    return response.status(200).json({ Message: "Item was deleted" });
+  },
+
   async indexUserOrphanages(request: Request, response: Response) {
     const orphanagesRepository = getRepository(Orphanage);
 
