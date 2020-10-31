@@ -1,0 +1,14 @@
+.myregisterorphanages-page {
+  display: flex;
+}
+
+.myregisterorphanages-page .card-container {
+  width: 100%;
+  height: 100%;
+
+  padding: 16px 0px 16px 120px;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  grid-gap: 16px;
+}

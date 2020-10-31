@@ -19,23 +19,23 @@
   margin: 0 auto;
 }
 
-.page-create-success .container .information-button {
+.page-create-success .container .information {
   text-align: center;
 }
 
-.page-create-success .container .information-button h1 {
+.page-create-success .container .information h1 {
   font-weight: 800;
   font-size: 80px;
 }
 
-.page-create-success .container .information-button p {
+.page-create-success .container .information p {
   width: 400px;
 
   margin-top: 32px;
   margin-bottom: 60px;
 }
 
-.page-create-success .container .information-button button {
+.page-create-success .container .information button {
   width: 243px;
   height: 64px;
 
@@ -52,6 +52,6 @@
   transition: background-color 0.5s;
 }
 
-.page-create-success .container .information-button button:hover {
+.page-create-success .container .information button:hover {
   background: #3bd689;
 }

@@ -9,6 +9,9 @@ import OrphanagesMap from "../pages/OrphanagesMap";
 import SignIn from "../pages/SignIn";
 import SignUp from "../pages/SignUp";
 import CreateSuccess from "../pages/CreateOrphanage/CreateSuccess";
+import MyRegisterOrphanages from "../pages/MyRegisterOrphanages";
+
+import RemoveOrphanage from "../pages/RemoveOrphanage";
 
 function Routes() {
   return (
@@ -19,12 +22,26 @@ function Routes() {
         <Route path="/signin" exact component={SignIn} />
         <Route path="/signup" exact component={SignUp} />
 
-        <Route path="/app" component={OrphanagesMap} isPrivate />
+        <Route path="/map" component={OrphanagesMap} isPrivate />
+
+        <Route
+          path="/registerOrphanages"
+          component={MyRegisterOrphanages}
+          isPrivate
+          exact
+        />
+
+        <Route
+          path="/registerOrphanages/remove/:id"
+          component={RemoveOrphanage}
+          isPrivate
+        />
 
         <Route
           path="/orphanages/create"
           component={CreateOrphanage}
           isPrivate
+          exact
         />
         <Route
           path="/orphanages/create-success"

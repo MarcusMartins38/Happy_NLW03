@@ -1,0 +1,84 @@
+.removeorphanage-page {
+  width: 100vw;
+  height: 100vh;
+
+  background: #ff669d;
+}
+
+.removeorphanage-page .container {
+  max-width: 862px;
+  height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto;
+}
+
+.removeorphanage-page .container .information-container {
+  max-width: 291px;
+  width: 100%;
+}
+
+.removeorphanage-page .container .information-container h1 {
+  font-weight: 800;
+  font-size: 80px;
+}
+
+.removeorphanage-page .container .information-container p {
+  margin-top: 32px;
+  margin-bottom: 60px;
+}
+
+.removeorphanage-page .container .information-container .button-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 16px;
+}
+
+.removeorphanage-page
+  .container
+  .information-container
+  .button-container
+  button {
+  width: 120px;
+  height: 64px;
+
+  border-radius: 20px;
+  border: 0;
+  text-align: center;
+  background: #35c07a;
+
+  color: #fff;
+  font-weight: 800;
+  font-size: 18px;
+
+  cursor: pointer;
+  transition: background-color 0.5s;
+}
+
+.removeorphanage-page
+  .container
+  .information-container
+  .button-container
+  button:hover {
+  background: #3bd689;
+}
+
+.removeorphanage-page
+  .container
+  .information-container
+  .button-container
+  button:nth-child(2) {
+  background: #d6487b;
+}
+
+.removeorphanage-page
+  .container
+  .information-container
+  .button-container
+  button:nth-child(2):hover {
+  background: #a62655;
+}

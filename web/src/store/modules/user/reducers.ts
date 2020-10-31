@@ -33,7 +33,7 @@ const userReducer: Reducer<UserData> = (state = INITIAL_STATE, action) => {
       localStorage.removeItem("@Happy:token");
       localStorage.removeItem("@Happy:user");
 
-      return INITIAL_STATE;
+      return { user: {}, token: "" };
     }
 
     default: {

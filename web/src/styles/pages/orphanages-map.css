@@ -4,43 +4,67 @@
 
   position: relative;
   display: flex;
+
+  position: relative;
 }
 
-#page-map aside {
-  width: 440px;
+#page-map .aside-apresentation {
+  width: 400px;
+  height: 100vh;
+
   background: linear-gradient(329.54deg, #29b6d1 0%, #00c7c7 100%);
   padding: 80px;
 
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  position: absolute;
+  z-index: 11;
+  right: 0;
 }
 
-#page-map aside h2 {
+#page-map .aside-apresentation h2 {
   font-size: 40px;
   font-weight: 800;
   line-height: 42px;
   margin-top: 64px;
 }
 
-#page-map aside p {
+#page-map .aside-apresentation p {
   line-height: 28px;
   margin-top: 24px;
 }
 
-#page-map aside footer {
+#page-map .aside-apresentation .confirm-button {
+  height: 64px;
+  border: 0;
+  cursor: pointer;
+  background: #3cdc8c;
+  border-radius: 20px;
+  color: #ffffff;
+  font-weight: 800;
+
+  transition: background-color 0.5s;
+}
+
+#page-map .aside-apresentation .confirm-button:hover {
+  background: #36cf82;
+}
+
+#page-map .aside-apresentation footer {
   display: flex;
   flex-direction: column;
 
   line-height: 24px;
 }
 
-#page-map aside footer strong {
+#page-map .aside-apresentation footer strong {
   font-weight: 800;
 }
 
-#page-map aside footer a,
-#page-map aside footer button {
+#page-map .aside-apresentation footer a,
+#page-map .aside-apresentation footer button {
   width: 48px;
   height: 48px;
 
@@ -60,8 +84,8 @@
   margin-top: 16px;
 }
 
-#page-map aside footer a:hover,
-#page-map aside footer button:hover {
+#page-map .aside-apresentation footer a:hover,
+#page-map .aside-apresentation footer button:hover {
   background: #17d6eb;
 }
 
@@ -123,4 +147,10 @@
 
 #page-map .map-popup .leaflet-popup-tip-content {
   display: none;
+}
+
+#side-bar-fix {
+  min-width: 96px;
+  max-width: 150px;
+  min-height: 100%;
 }

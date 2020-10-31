@@ -71,9 +71,7 @@ export default function CreateOrphanage() {
 
       images.forEach((image) => data.append("images", image));
 
-      await api.post("/orphanages", data);
-
-      alert("Cadastro realizado com sucesso");
+      await api.post("/user/orphanages", data);
 
       history.push("/orphanages/create-success");
     } catch (err) {

@@ -17,7 +17,7 @@ const CreateSuccess: React.FC = () => {
       className="page-create-success"
     >
       <div className="container">
-        <div className="information-button">
+        <div className="information">
           <h1>Ebaaa!</h1>
           <p>
             O cadastro deu certo e foi marcado sua localização no mapa . Agora é
@@ -25,7 +25,7 @@ const CreateSuccess: React.FC = () => {
           </p>
 
           <button
-            onClick={() => history.push("/app")}
+            onClick={() => history.push("/map")}
             className="back-map-button"
           >
             Voltar para o mapa
