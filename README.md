@@ -20,7 +20,32 @@ surgiu o Happy, que é uma aplicação com o intuito de informar além da locali
 ## Como a Aplicação Funciona
 Até o momento, é possivel registrar uma institução de acolhimento no mapa da cidade. Sendo possivel analisar pelo mapa, onde se encontra essas instituições
 e mais informações sobre a mesma. Tanto na aplicação Web, quanto na Mobile.
+**Obs:** (Deve ser feita uma atualização na versão Mobile, podendo não estar funcionando adequadamente devido as novas funcionalides adicionadas no back-end e Web, referentes a autenticação).
 
+<p align="center">
+<img src="./.github/Register.gif" width=550 align="center" />
+</p>
+    
+  
+A aplicação na Web, ainda conta com mais algumas funcionalidades, como:  
+- A possbilidade de se Registrar e fazer autenticação;
+  
+<p align="center">
+<img src="./.github/SignIn.png" width=450 align="center" />
+<img src="./.github/SignUp.png" width=450 align="center" />
+</p>
+
+- A possibilidade de visualizar os orfanatos que você registrou
+
+<p align="center">
+<img src="./.github/Dashboard.png" width=550 align="center" />
+</p>
+  
+- E a possibilidade de excluir (A de editar, ainda não foi adicionada)
+
+<p align="center">
+<img src="./.github/Remove.gif" width=550 align="center" />
+</p>
 
 
 ## Algumas das Tecnologias
@@ -40,6 +65,8 @@ Algumas das bibliotecas utilizadas:
 - react testing library / jest
 - leaflet
 - Framer Motion
+- Redux
+- Redux-saga
 
 
 **Mobile (React Native com TypeScript)**  
