@@ -22,7 +22,7 @@
   flex-direction: column;
   justify-content: space-between;
 
-  background: url("../../images/landing.svg") no-repeat 80% center;
+  background: url("../../images/landing02.svg") no-repeat 80% center;
 }
 
 #page-landing .content-wrapper main {
@@ -80,4 +80,22 @@
 
 .content-wrapper .enter-app:hover {
   background: #96feff;
+}
+
+.admin-button {
+  background-color: transparent;
+  border: 0;
+
+  font-weight: bold;
+  color: #ffd666;
+  font-size: 16px;
+
+  cursor: pointer;
+
+  z-index: 1000;
+  text-decoration: underline;
+}
+
+.admin-button:hover {
+  opacity: 0.8;
 }

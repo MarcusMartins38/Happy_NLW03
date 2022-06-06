@@ -22,7 +22,8 @@ function Routes() {
         <Route path="/signin" exact component={SignIn} />
         <Route path="/signup" exact component={SignUp} />
 
-        <Route path="/map" component={OrphanagesMap} isPrivate />
+        <Route path="/map" component={OrphanagesMap} canView />
+        <Route path="/orphanages/:id" component={Orphanage} canView />
 
         <Route
           path="/registerOrphanages"
@@ -38,17 +39,16 @@ function Routes() {
         />
 
         <Route
-          path="/orphanages/create"
+          path="/orphanages-create"
           component={CreateOrphanage}
           isPrivate
           exact
         />
         <Route
-          path="/orphanages/create-success"
+          path="/orphanages-create-success"
           component={CreateSuccess}
           isPrivate
         />
-        <Route path="/orphanages/:id" component={Orphanage} isPrivate />
       </Switch>
     </BrowserRouter>
   );

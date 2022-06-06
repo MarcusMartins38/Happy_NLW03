@@ -5,13 +5,18 @@ import { Map, Marker, TileLayer } from "react-leaflet";
 
 import "../styles/pages/orphanage.css";
 import Sidebar from "../components/Sidebar";
-import mapIcon from "../utils/mapIcon";
+import {mapIcon, mapIconAsylum} from "../utils/mapIcon";
 import api from "../services/api";
 import { useParams } from "react-router-dom";
 import { IState } from "../store";
 import { UserData } from "../store/modules/user/types";
 import { useSelector } from "react-redux";
+import { donationItems } from "./CreateOrphanage/CreateOrphanage.constants";
 
+interface ItemsProps {
+  id: number;
+  name: string;
+}
 interface Orphanage {
   name: string;
   latitude: number;
@@ -24,6 +29,8 @@ interface Orphanage {
     id: number;
     url: string;
   }[];
+  institute_type: string;
+  items: ItemsProps[];
 }
 
 interface OrphanageParams {
@@ -45,6 +52,12 @@ export default function Orphanage() {
 
   if (!orphanage) {
     return <p>Carregando...</p>;
+  }
+
+  const isActive = (itemName: string) => {
+    const isSelectedItem = orphanage.items.find(item => item.name === itemName);
+    if (isSelectedItem) return 'active-donation';
+    else return '';
   }
 
   console.log(orphanage);
@@ -106,7 +119,7 @@ export default function Orphanage() {
 
                 <Marker
                   interactive={false}
-                  icon={mapIcon}
+                  icon={orphanage.institute_type === 'orphanage' ? mapIcon : mapIconAsylum}
                   position={[orphanage.latitude, orphanage.longitude]}
                 />
               </Map>
@@ -120,6 +133,42 @@ export default function Orphanage() {
                   Ver rotas no Google Maps
                 </a>
               </footer>
+            </div>
+
+            <div className="input-block">
+              <label htmlFor="institute_type">Qual o tipo de instituição</label>
+
+              <div className="button-select">
+                <button
+                  type="button"
+                  className={orphanage.institute_type === 'orphanage' ? "active" : ""}
+                >
+                  Orfanato
+                </button>
+                <button
+                  type="button"
+                  className={orphanage.institute_type === 'asylum' ? "activeClose" : ""}
+                >
+                  Asilo
+                </button>
+              </div>
+            </div>
+
+            <div className="input-block">
+              <label htmlFor="institute_type">Items necessitados</label>
+
+              <div className="donation-items">
+                {donationItems.map(item => (
+                  <div
+                    key={item.name}
+                    className="item-to-donation"
+                    id={isActive(item.name)}
+                  >
+                    <img src={item.icon} alt={item.name} />
+                    <span>{item.name}</span>
+                </div>
+                ))}
+              </div>
             </div>
 
             <hr />

@@ -11,7 +11,7 @@ export default {
     const orphanagesRepository = getRepository(Orphanage);
 
     const orphanages = await orphanagesRepository.find({
-      relations: ["images", "user"],
+      relations: ["images", "user", "items"],
     });
 
     return response.json(orphanageView.renderMany(orphanages));
@@ -23,7 +23,7 @@ export default {
     const orphanagesRepository = getRepository(Orphanage);
 
     const orphanage = await orphanagesRepository.findOneOrFail(id, {
-      relations: ["images", "user"],
+      relations: ["images", "user", "items"],
     });
 
     return response.json(orphanageView.render(orphanage));
@@ -38,6 +38,8 @@ export default {
       instructions,
       opening_hours,
       open_on_weekends,
+      institute_type,
+      items,
     } = request.body;
 
     const user_id = request.user.id;
@@ -47,6 +49,8 @@ export default {
     if (!user) {
       return response.status(500).json({ Message: "This user not exists" });
     }
+
+    const formatItems = items.map((item: any) => ({name: item}))
 
     const orphanagesRepository = getRepository(Orphanage);
 
@@ -63,9 +67,12 @@ export default {
       instructions,
       opening_hours,
       open_on_weekends: open_on_weekends === "true",
+      institute_type,
       user,
       images,
+      items: formatItems,
     };
+    console.log(data)
 
     const schema = Yup.object().shape({
       name: Yup.string().required(),
@@ -75,6 +82,8 @@ export default {
       instructions: Yup.string().required(),
       opening_hours: Yup.string().required(),
       open_on_weekends: Yup.boolean().required(),
+      institute_type: Yup.string().required(),
+      items: Yup.array(),
       images: Yup.array(
         Yup.object().shape({
           path: Yup.string().required(),

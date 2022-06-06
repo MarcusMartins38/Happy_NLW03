@@ -2,7 +2,7 @@ import React from "react";
 
 import { Map, Marker, TileLayer } from "react-leaflet";
 import { FiEdit3, FiTrash } from "react-icons/fi";
-import mapIcon from "../utils/mapIcon";
+import {mapIcon, mapIconAsylum} from "../utils/mapIcon";
 
 import "../styles/components/OrphanageCard.css";
 import { Link } from "react-router-dom";
@@ -13,6 +13,7 @@ interface OprhanageProps {
   latitude: number;
   longitude: number;
   open_on_weekends: boolean;
+  institute_type: string;
 }
 
 interface DataProps {
@@ -37,7 +38,7 @@ const OrphanageCard: React.FC<DataProps> = ({ orphanage }) => {
 
           <Marker
             interactive={false}
-            icon={mapIcon}
+            icon={orphanage.institute_type === 'orphanage' ? mapIcon : mapIconAsylum}
             position={[orphanage.latitude, orphanage.longitude]}
           />
         </Map>

@@ -17,6 +17,7 @@ function* checkIfUserAlreadyLogged({ payload }: ifAlreadyLogged) {
     yield put(SignIn({ user: JSON.parse(user), token }));
   } else {
     try {
+      // @ts-ignore
       const response = yield call(api.post, "/sessions", { email, password });
       const { user, token } = response.data;
 

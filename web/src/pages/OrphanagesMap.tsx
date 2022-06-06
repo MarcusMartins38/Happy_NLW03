@@ -7,7 +7,7 @@ import { useHistory } from "react-router-dom";
 import mapMarkerImg from "../images/map-marker.svg";
 
 import "../styles/pages/orphanages-map.css";
-import mapIcon from "../utils/mapIcon";
+import { mapIcon, mapIconAsylum } from "../utils/mapIcon";
 import { FiPower } from "react-icons/fi";
 import api from "../services/api";
 import { motion } from "framer-motion";
@@ -20,6 +20,7 @@ interface Orphanage {
   name: string;
   latitude: number;
   longitude: number;
+  institute_type: string;
 }
 
 const OrphanagesMap: React.FC = () => {
@@ -47,7 +48,7 @@ const OrphanagesMap: React.FC = () => {
 
         {orphanages.map((orphanage) => (
           <Marker
-            icon={mapIcon}
+            icon={orphanage.institute_type === 'orphanage' ? mapIcon : mapIconAsylum}
             position={[orphanage.latitude, orphanage.longitude]}
             key={orphanage.id}
           >
@@ -66,7 +67,7 @@ const OrphanagesMap: React.FC = () => {
         ))}
       </Map>
 
-      <Link to="/orphanages/create" className="create-orphanage">
+      <Link to="/orphanages-create" className="create-orphanage">
         <FiPlus size={32} color="#FFF" />
       </Link>
 

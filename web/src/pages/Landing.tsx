@@ -39,9 +39,10 @@ function Landing() {
           <span>Rondônia</span>
         </div>
 
-        <Link to="/signin" className="enter-app">
+        <Link to="/map" className="enter-app">
           <FiArrowRight size={26} color="rgba(0, 0, 0, 0.6)" />
         </Link>
+        <Link to="/signin" className="admin-button">Entrar como Admin</Link>
       </motion.div>
     </div>
   );

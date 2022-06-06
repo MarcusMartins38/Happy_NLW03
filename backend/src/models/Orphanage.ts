@@ -7,7 +7,14 @@ import {
   ManyToOne,
 } from "typeorm";
 import Image from "./Image";
+import Items from "./items";
 import User from "./User";
+
+enum InstituteType {
+  ORPHANAGE = 'orphanage',
+  ASYLUM = 'asylum',
+}
+
 @Entity("orphanages")
 export default class Orphanage {
   @PrimaryGeneratedColumn("increment")
@@ -33,13 +40,23 @@ export default class Orphanage {
 
   @Column()
   open_on_weekends: boolean;
+  
+  @Column({
+    default: 'orphanage'
+  })
+  institute_type: InstituteType;
+
+  // @Column("string", { array: true })
+  // donation_items: string[];
 
   // @Column()
   // user_id: string;
 
-  // @ManyToOne(() => User)
-  // @JoinColumn({ name: "user_id" })
-  // user: User;
+  @OneToMany(() => Items, (item) => item.orphanage, {
+    cascade: ["insert", "update"],
+  })
+  @JoinColumn({ name: "orphanage_id" })
+  items: Items[];
 
   @OneToMany(() => Image, (image) => image.orphanage, {
     cascade: ["insert", "update"],

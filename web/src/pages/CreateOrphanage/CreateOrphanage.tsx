@@ -6,11 +6,12 @@ import { FiPlus } from "react-icons/fi";
 
 import "../../styles/pages/CreateOrphanage/create-orphanage.css";
 import Sidebar from "../../components/Sidebar";
-import mapIcon from "../../utils/mapIcon";
+import {mapIcon} from "../../utils/mapIcon";
 import api from "../../services/api";
 import { useHistory } from "react-router-dom";
 
 import { motion, useViewportScroll, useTransform } from "framer-motion";
+import { donationItems } from "./CreateOrphanage.constants";
 
 export default function CreateOrphanage() {
   const { scrollYProgress } = useViewportScroll();
@@ -25,8 +26,10 @@ export default function CreateOrphanage() {
   const [instructions, setInstructions] = useState("");
   const [opening_hours, setOpening_hours] = useState("");
   const [open_on_weekends, setOpen_on_weekends] = useState(true);
+  const [institute_type, setInstitute_type] = useState('orphanage');
   const [images, setImages] = useState<File[]>([]);
   const [previewImages, setPreviewImages] = useState<string[]>([]);
+  const [items, setItemsToDonation] = useState<string[]>([]);
 
   function handleMapClick(event: LeafletMouseEvent) {
     const { lat, lng } = event.latlng;
@@ -68,15 +71,32 @@ export default function CreateOrphanage() {
       data.append("instructions", instructions);
       data.append("opening_hours", opening_hours);
       data.append("open_on_weekends", String(open_on_weekends));
+      data.append("institute_type", institute_type);
 
+      items.forEach(item => data.append("items", item))
       images.forEach((image) => data.append("images", image));
 
       await api.post("/user/orphanages", data);
 
-      history.push("/orphanages/create-success");
+      history.push("/orphanages-create-success");
     } catch (err) {
       alert("Erro no Cadastro");
     }
+  }
+
+  const clickItemsToDonation = (itemName: string) => {
+    const isSelectedItem = items.find(item => item === itemName);
+    if(isSelectedItem) {
+      const selectedItems = items.filter(item => item !== itemName)
+      setItemsToDonation(selectedItems);
+    }
+    else { setItemsToDonation([...items, itemName])}
+  }
+
+  const isActive = (itemName: string) => {
+    const isSelectedItem = items.find(item => item === itemName);
+    if (isSelectedItem) return 'active-donation';
+    else return '';
   }
 
   return (
@@ -146,6 +166,46 @@ export default function CreateOrphanage() {
                 id="image[]"
               />
             </div>
+
+            <div className="input-block">
+              <label htmlFor="institute_type">Qual o tipo de instituição</label>
+
+              <div className="button-select">
+                <button
+                  type="button"
+                  className={institute_type === 'orphanage' ? "active" : ""}
+                  onClick={() => setInstitute_type('orphanage')}
+                >
+                  Orfanato
+                </button>
+                <button
+                  type="button"
+                  className={institute_type === 'asylum' ? "activeClose" : ""}
+                  onClick={() => setInstitute_type('asylum')}
+                >
+                  Asilo
+                </button>
+              </div>
+            </div>
+
+            <div className="input-block">
+              <label htmlFor="institute_type">Items necessitados</label>
+
+              <div className="donation-items">
+                {donationItems.map(item => (
+                  <div
+                    key={item.name}
+                    className="item-to-donation"
+                    onClick={() => clickItemsToDonation(item.name)}
+                    id={isActive(item.name)}
+                  >
+                    <img src={item.icon} alt={item.name} />
+                    <span>{item.name}</span>
+                </div>
+                ))}
+              </div>
+            </div>
+
           </fieldset>
 
           <fieldset>

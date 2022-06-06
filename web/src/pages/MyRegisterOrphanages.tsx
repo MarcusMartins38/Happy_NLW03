@@ -12,6 +12,7 @@ interface OprhanageProps {
   latitude: number;
   longitude: number;
   open_on_weekends: boolean;
+  institute_type: string;
 }
 
 const MyRegisterOrphanages: React.FC = () => {

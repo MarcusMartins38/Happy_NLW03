@@ -11,11 +11,13 @@ import { UserData } from "../store/modules/user/types";
 
 interface RouteProps extends ReactDOMRouteProps {
   isPrivate?: boolean;
+  canView?: boolean;
   component: React.ComponentType;
 }
 
 const Route: React.FC<RouteProps> = ({
   isPrivate = false,
+  canView = false,
   component: Component,
   ...rest
 }) => {
@@ -32,7 +34,7 @@ const Route: React.FC<RouteProps> = ({
     <ReactDOMRoute
       {...rest}
       render={({ location }) => {
-        return isPrivate === userExists ? (
+        return (isPrivate === userExists) || canView ? (
           <Component />
         ) : (
           <Redirect
