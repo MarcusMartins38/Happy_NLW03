@@ -15,7 +15,7 @@ export default {
 
     const orphanagesRepository = getRepository(Orphanage);
     const findId = await orphanagesRepository.findOne({
-      relations: ["images", "user"],
+      relations: ["images", "user", "items"],
       where: { id },
     });
 
@@ -48,7 +48,7 @@ export default {
     }
 
     const orphanages = await orphanagesRepository.find({
-      relations: ["images", "user"],
+      relations: ["images", "user", "items"],
       where: { user },
     });
 

@@ -32,6 +32,6 @@ routes.delete(
 routes.post("/sessions", SessionController.create);
 
 routes.get("/orphanages", OrphanagesController.index);
-routes.get("/orphanages/:id", ensureAuthenticated, OrphanagesController.show);
+routes.get("/orphanages/:id", OrphanagesController.show);
 
 export default routes;

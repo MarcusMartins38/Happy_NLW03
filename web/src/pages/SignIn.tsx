@@ -28,7 +28,7 @@ const SignIn: React.FC = () => {
 
       dispatch(checkIfAlreadyLogged(data));
     },
-    [email, password]
+    [dispatch, email, password]
   );
 
   return (
@@ -79,7 +79,7 @@ const SignIn: React.FC = () => {
             />
           </div>
 
-          <div className="options">
+          {/* <div className="options">
             <div>
               <input
                 type="checkbox"
@@ -108,7 +108,7 @@ const SignIn: React.FC = () => {
             </div>
 
             <Link to="/forgot-password">Esqueci minha senha</Link>
-          </div>
+          </div> */}
 
           <Link className="register" to="/signup">
             Registrar-se
