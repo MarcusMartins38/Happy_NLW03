@@ -11,9 +11,11 @@ import { mapIcon, mapIconAsylum } from "../utils/mapIcon";
 import { FiPower } from "react-icons/fi";
 import api from "../services/api";
 import { motion } from "framer-motion";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { SignOut } from "../store/modules/user/actions";
 import Sidebar from "../components/Sidebar";
+import { IState } from "../store";
+import { UserData } from "../store/modules/user/types";
 
 interface Orphanage {
   id: number;
@@ -26,6 +28,7 @@ interface Orphanage {
 const OrphanagesMap: React.FC = () => {
   const [orphanages, setOrphanages] = useState<Orphanage[]>([]);
   const [instructionClose, setInstructionsClose] = useState(false);
+  const { token } = useSelector<IState, UserData>((state) => state.userReducer);
 
   useEffect(() => {
     api.get("/orphanages").then((response) => {
@@ -67,9 +70,11 @@ const OrphanagesMap: React.FC = () => {
         ))}
       </Map>
 
-      <Link to="/orphanages-create" className="create-orphanage">
-        <FiPlus size={32} color="#FFF" />
-      </Link>
+      {token ?? (
+        <Link to="/orphanages-create" className="create-orphanage">
+          <FiPlus size={32} color="#FFF" />
+        </Link>
+      )}
 
       <motion.aside
         initial={

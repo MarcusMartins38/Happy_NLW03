@@ -22,8 +22,8 @@ function Routes() {
         <Route path="/signin" exact component={SignIn} />
         <Route path="/signup" exact component={SignUp} />
 
-        <Route path="/map" component={OrphanagesMap} canView />
-        <Route path="/orphanages/:id" component={Orphanage} canView />
+        <Route path="/map" component={OrphanagesMap} isPublic />
+        <Route path="/orphanages/:id" component={Orphanage} isPublic />
 
         <Route
           path="/registerOrphanages"
