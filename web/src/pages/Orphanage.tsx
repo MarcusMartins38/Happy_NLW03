@@ -5,7 +5,7 @@ import { Map, Marker, TileLayer } from "react-leaflet";
 
 import "../styles/pages/orphanage.css";
 import Sidebar from "../components/Sidebar";
-import {mapIcon, mapIconAsylum} from "../utils/mapIcon";
+import { mapIcon, mapIconAsylum } from "../utils/mapIcon";
 import api from "../services/api";
 import { useParams } from "react-router-dom";
 import { IState } from "../store";
@@ -31,6 +31,7 @@ interface Orphanage {
   }[];
   institute_type: string;
   items: ItemsProps[];
+  phone_number?: string;
 }
 
 interface OrphanageParams {
@@ -55,12 +56,12 @@ export default function Orphanage() {
   }
 
   const isActive = (itemName: string) => {
-    const isSelectedItem = orphanage.items.find(item => item.name === itemName);
-    if (isSelectedItem) return 'active-donation';
-    else return '';
-  }
-
-  console.log(orphanage);
+    const isSelectedItem = orphanage.items.find(
+      (item) => item.name === itemName
+    );
+    if (isSelectedItem) return "active-donation";
+    else return "";
+  };
 
   return (
     <div id="page-orphanage">
@@ -119,7 +120,11 @@ export default function Orphanage() {
 
                 <Marker
                   interactive={false}
-                  icon={orphanage.institute_type === 'orphanage' ? mapIcon : mapIconAsylum}
+                  icon={
+                    orphanage.institute_type === "orphanage"
+                      ? mapIcon
+                      : mapIconAsylum
+                  }
                   position={[orphanage.latitude, orphanage.longitude]}
                 />
               </Map>
@@ -141,13 +146,17 @@ export default function Orphanage() {
               <div className="button-select">
                 <button
                   type="button"
-                  className={orphanage.institute_type === 'orphanage' ? "active" : ""}
+                  className={
+                    orphanage.institute_type === "orphanage" ? "active" : ""
+                  }
                 >
                   Orfanato
                 </button>
                 <button
                   type="button"
-                  className={orphanage.institute_type === 'asylum' ? "activeClose" : ""}
+                  className={
+                    orphanage.institute_type === "asylum" ? "activeClose" : ""
+                  }
                 >
                   Asilo
                 </button>
@@ -158,7 +167,7 @@ export default function Orphanage() {
               <label htmlFor="institute_type">Items necessitados</label>
 
               <div className="donation-items">
-                {donationItems.map(item => (
+                {donationItems.map((item) => (
                   <div
                     key={item.name}
                     className="item-to-donation"
@@ -166,7 +175,7 @@ export default function Orphanage() {
                   >
                     <img src={item.icon} alt={item.name} />
                     <span>{item.name}</span>
-                </div>
+                  </div>
                 ))}
               </div>
             </div>
@@ -197,10 +206,13 @@ export default function Orphanage() {
               )}
             </div>
 
-            <button type="button" className="contact-button">
+            <a
+              href={`https://wa.me/${orphanage.phone_number}/?text=Olá sou cliente da plataforma Happy c:, e vim conhecer mais sobre a instituição!`}
+              className="contact-button"
+            >
               <FaWhatsapp size={20} color="#FFF" />
               Entrar em contato
-            </button>
+            </a>
           </div>
         </div>
       </main>

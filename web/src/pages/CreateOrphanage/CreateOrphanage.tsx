@@ -6,7 +6,7 @@ import { FiPlus } from "react-icons/fi";
 
 import "../../styles/pages/CreateOrphanage/create-orphanage.css";
 import Sidebar from "../../components/Sidebar";
-import {mapIcon} from "../../utils/mapIcon";
+import { mapIcon } from "../../utils/mapIcon";
 import api from "../../services/api";
 import { useHistory } from "react-router-dom";
 
@@ -26,10 +26,11 @@ export default function CreateOrphanage() {
   const [instructions, setInstructions] = useState("");
   const [opening_hours, setOpening_hours] = useState("");
   const [open_on_weekends, setOpen_on_weekends] = useState(true);
-  const [institute_type, setInstitute_type] = useState('orphanage');
+  const [institute_type, setInstitute_type] = useState("orphanage");
   const [images, setImages] = useState<File[]>([]);
   const [previewImages, setPreviewImages] = useState<string[]>([]);
   const [items, setItemsToDonation] = useState<string[]>([]);
+  const [phone_number, setPhone_number] = useState("");
 
   function handleMapClick(event: LeafletMouseEvent) {
     const { lat, lng } = event.latlng;
@@ -72,8 +73,9 @@ export default function CreateOrphanage() {
       data.append("opening_hours", opening_hours);
       data.append("open_on_weekends", String(open_on_weekends));
       data.append("institute_type", institute_type);
+      data.append("phone_number", phone_number);
 
-      items.forEach(item => data.append("items", item))
+      items.forEach((item) => data.append("items", item));
       images.forEach((image) => data.append("images", image));
 
       await api.post("/user/orphanages", data);
@@ -85,19 +87,20 @@ export default function CreateOrphanage() {
   }
 
   const clickItemsToDonation = (itemName: string) => {
-    const isSelectedItem = items.find(item => item === itemName);
-    if(isSelectedItem) {
-      const selectedItems = items.filter(item => item !== itemName)
+    const isSelectedItem = items.find((item) => item === itemName);
+    if (isSelectedItem) {
+      const selectedItems = items.filter((item) => item !== itemName);
       setItemsToDonation(selectedItems);
+    } else {
+      setItemsToDonation([...items, itemName]);
     }
-    else { setItemsToDonation([...items, itemName])}
-  }
+  };
 
   const isActive = (itemName: string) => {
-    const isSelectedItem = items.find(item => item === itemName);
-    if (isSelectedItem) return 'active-donation';
-    else return '';
-  }
+    const isSelectedItem = items.find((item) => item === itemName);
+    if (isSelectedItem) return "active-donation";
+    else return "";
+  };
 
   return (
     <div id="page-create-orphanage">
@@ -173,15 +176,15 @@ export default function CreateOrphanage() {
               <div className="button-select">
                 <button
                   type="button"
-                  className={institute_type === 'orphanage' ? "active" : ""}
-                  onClick={() => setInstitute_type('orphanage')}
+                  className={institute_type === "orphanage" ? "active" : ""}
+                  onClick={() => setInstitute_type("orphanage")}
                 >
                   Orfanato
                 </button>
                 <button
                   type="button"
-                  className={institute_type === 'asylum' ? "activeClose" : ""}
-                  onClick={() => setInstitute_type('asylum')}
+                  className={institute_type === "asylum" ? "activeClose" : ""}
+                  onClick={() => setInstitute_type("asylum")}
                 >
                   Asilo
                 </button>
@@ -192,7 +195,7 @@ export default function CreateOrphanage() {
               <label htmlFor="institute_type">Items necessitados</label>
 
               <div className="donation-items">
-                {donationItems.map(item => (
+                {donationItems.map((item) => (
                   <div
                     key={item.name}
                     className="item-to-donation"
@@ -201,11 +204,10 @@ export default function CreateOrphanage() {
                   >
                     <img src={item.icon} alt={item.name} />
                     <span>{item.name}</span>
-                </div>
+                  </div>
                 ))}
               </div>
             </div>
-
           </fieldset>
 
           <fieldset>
@@ -250,6 +252,21 @@ export default function CreateOrphanage() {
               </div>
             </div>
           </fieldset>
+
+          <div className="input-block" id="phone_number">
+            <label htmlFor="phone_number">
+              Numero de Contato
+              <span>
+                <strong>Correto:</strong> 556996312XXXX <br />{" "}
+                <strong>Incorreto:</strong> +55-(069)96312XXXX
+              </span>
+            </label>
+            <input
+              id="phone_number"
+              value={phone_number}
+              onChange={(e) => setPhone_number(e.target.value)}
+            />
+          </div>
 
           <button className="confirm-button" type="submit">
             Confirmar

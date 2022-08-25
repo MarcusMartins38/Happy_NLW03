@@ -6,6 +6,18 @@
   flex: 1;
 }
 
+#phone_number {
+  margin-top: 12px;
+}
+
+#phone_number label {
+  margin-top: 32px;
+}
+
+#phone_number span {
+  margin-left: 88px;
+}
+
 form.create-orphanage-form {
   width: 700px;
   margin: 64px auto;
@@ -190,7 +202,7 @@ form.create-orphanage-form button.confirm-button:hover {
   height: 135px;
   width: 151px;
 
-  background-color: #F5F8FA;
+  background-color: #f5f8fa;
 
   display: flex;
   justify-content: center;
