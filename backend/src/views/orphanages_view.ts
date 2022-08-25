@@ -15,6 +15,7 @@ export default {
       opening_hours: orphanage.opening_hours,
       open_on_weekends: orphanage.open_on_weekends,
       institute_type: orphanage.institute_type,
+      phone_number: orphanage.phone_number,
       items: itemsView.renderMany(orphanage.items),
       images: imagesView.renderMany(orphanage.images),
     };

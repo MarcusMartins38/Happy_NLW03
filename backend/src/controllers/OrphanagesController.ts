@@ -40,6 +40,7 @@ export default {
       open_on_weekends,
       institute_type,
       items,
+      phone_number,
     } = request.body;
 
     const user_id = request.user.id;
@@ -50,7 +51,7 @@ export default {
       return response.status(500).json({ Message: "This user not exists" });
     }
 
-    const formatItems = items.map((item: any) => ({name: item}))
+    const formatItems = items.map((item: any) => ({ name: item }));
 
     const orphanagesRepository = getRepository(Orphanage);
 
@@ -71,8 +72,9 @@ export default {
       user,
       images,
       items: formatItems,
+      phone_number,
     };
-    console.log(data)
+    console.log(data);
 
     const schema = Yup.object().shape({
       name: Yup.string().required(),
@@ -83,6 +85,7 @@ export default {
       opening_hours: Yup.string().required(),
       open_on_weekends: Yup.boolean().required(),
       institute_type: Yup.string().required(),
+      phone_number: Yup.string(),
       items: Yup.array(),
       images: Yup.array(
         Yup.object().shape({

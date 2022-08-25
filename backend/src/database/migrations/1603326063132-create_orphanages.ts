@@ -52,6 +52,11 @@ export class createOrphanages1603326063132 implements MigrationInterface {
             default: false,
           },
           {
+            name: "phone_number",
+            type: "varchar",
+            isNullable: true,
+          },
+          {
             name: "user_id",
             type: "uuid",
           },

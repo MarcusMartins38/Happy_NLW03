@@ -11,8 +11,8 @@ import Items from "./items";
 import User from "./User";
 
 enum InstituteType {
-  ORPHANAGE = 'orphanage',
-  ASYLUM = 'asylum',
+  ORPHANAGE = "orphanage",
+  ASYLUM = "asylum",
 }
 
 @Entity("orphanages")
@@ -40,9 +40,9 @@ export default class Orphanage {
 
   @Column()
   open_on_weekends: boolean;
-  
+
   @Column({
-    default: 'orphanage'
+    default: "orphanage",
   })
   institute_type: InstituteType;
 
@@ -51,6 +51,9 @@ export default class Orphanage {
 
   // @Column()
   // user_id: string;
+
+  @Column()
+  phone_number: string;
 
   @OneToMany(() => Items, (item) => item.orphanage, {
     cascade: ["insert", "update"],
