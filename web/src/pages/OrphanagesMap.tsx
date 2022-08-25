@@ -51,7 +51,9 @@ const OrphanagesMap: React.FC = () => {
 
         {orphanages.map((orphanage) => (
           <Marker
-            icon={orphanage.institute_type === 'orphanage' ? mapIcon : mapIconAsylum}
+            icon={
+              orphanage.institute_type === "orphanage" ? mapIcon : mapIconAsylum
+            }
             position={[orphanage.latitude, orphanage.longitude]}
             key={orphanage.id}
           >
@@ -70,7 +72,7 @@ const OrphanagesMap: React.FC = () => {
         ))}
       </Map>
 
-      {token ?? (
+      {token && (
         <Link to="/orphanages-create" className="create-orphanage">
           <FiPlus size={32} color="#FFF" />
         </Link>

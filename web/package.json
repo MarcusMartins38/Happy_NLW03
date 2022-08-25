@@ -60,6 +60,13 @@
     "@types/react-router-dom": "^5.1.6",
     "@types/redux-mock-store": "^1.0.2",
     "@types/redux-saga": "^0.10.5",
-    "axios-mock-adapter": "^1.18.2"
+    "@typescript-eslint/eslint-plugin": "^5.35.1",
+    "@typescript-eslint/parser": "^5.35.1",
+    "axios-mock-adapter": "^1.18.2",
+    "eslint": "^8.22.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.31.0",
+    "prettier": "^2.7.1"
   }
 }

@@ -6,8 +6,10 @@ import mapMarkerImg from "../images/map-marker.svg";
 
 import "../styles/components/Sidebar.css";
 import { motion } from "framer-motion";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { SignOut } from "../store/modules/user/actions";
+import { IState } from "../store";
+import { UserData } from "../store/modules/user/types";
 
 interface SidebarProps {
   signOut?: boolean;
@@ -16,6 +18,7 @@ interface SidebarProps {
 const Sidebar: React.FC<SidebarProps> = ({ signOut = false }) => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const { token } = useSelector<IState, UserData>((state) => state.userReducer);
 
   const [path, setPath] = useState(window.location.pathname);
 
@@ -41,15 +44,17 @@ const Sidebar: React.FC<SidebarProps> = ({ signOut = false }) => {
           <FiMap size={24} color={path === "/map" ? "#00BBE0" : "#FFF"} />
         </NavLink>
 
-        <NavLink
-          to="/registerOrphanages"
-          activeStyle={{ background: "#FFD666" }}
-        >
-          <FiMapPin
-            size={24}
-            color={path === "/registerOrphanages" ? "#00BBE0" : "#FFF"}
-          />
-        </NavLink>
+        {token && (
+          <NavLink
+            to="/registerOrphanages"
+            activeStyle={{ background: "#FFD666" }}
+          >
+            <FiMapPin
+              size={24}
+              color={path === "/registerOrphanages" ? "#00BBE0" : "#FFF"}
+            />
+          </NavLink>
+        )}
       </div>
 
       <footer>
