@@ -99,4 +99,30 @@ $ npm install
 $ npm start
 ```
 
+----
+**USANDO NO TCC:**
+
+
+**node versão = v14.19.0**
+
+
+`git clone https://github.com/MarcusMartins38/Happy_NLW03.git`
+
+
+Acessar a branch de TCC:
+`git checkout tcc_dev`
+
+Acessando e fazendo o setup do servidor/backend:
+```
+cd Happy_NLW03/backend
+npm install
+npm run dev
+```
+
+Acessando e fazendo o setup da aplicação web:
+```
+cd Happy_NLW03/web
+npm install
+npm run start
+```
 
