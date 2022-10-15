@@ -63,6 +63,13 @@ export default function Orphanage() {
     else return "";
   };
 
+  const formatUrl = (url: string) => {
+    const splittedUrl = url.split('3333');
+    const newUrl = 'http://localhost:3333'+splittedUrl[1];
+    console.log(newUrl);
+    return newUrl;
+  }
+
   return (
     <div id="page-orphanage">
       <Sidebar />
@@ -72,7 +79,7 @@ export default function Orphanage() {
           <img
             src={
               orphanage.images[activeImageIndex]?.url
-                ? orphanage.images[activeImageIndex].url
+                ? formatUrl(orphanage.images[activeImageIndex].url)
                 : "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/600px-No_image_available.svg.png"
             }
             style={{
@@ -95,7 +102,7 @@ export default function Orphanage() {
                     setActiveImageIndex(index);
                   }}
                 >
-                  <img src={image.url} alt={orphanage.name} />
+                  <img src={formatUrl(image.url)} alt={orphanage.name} />
                 </button>
               );
             })}
@@ -165,6 +172,7 @@ export default function Orphanage() {
 
             <div className="input-block">
               <label htmlFor="institute_type">Items necessitados</label>
+              <h2>Items de maior necessidade</h2>
 
               <div className="donation-items">
                 {donationItems.map((item) => (

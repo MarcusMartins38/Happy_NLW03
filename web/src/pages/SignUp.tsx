@@ -28,6 +28,7 @@ const SignUp: React.FC = () => {
         api.post("/user", data);
 
         history.push("/signin");
+        alert("Registrado com Sucesso");
       } catch (err) {
         alert("Falha ao registrar-se");
       }
