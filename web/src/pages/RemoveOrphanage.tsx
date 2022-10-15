@@ -25,7 +25,6 @@ const RemoveOrphanage: React.FC = () => {
       setOrphanageName(response.data.name);
     })
 
-    console.log(orphanageName)
   }, [orphanageName, params.id])
 
   async function handleRemoveButton() {

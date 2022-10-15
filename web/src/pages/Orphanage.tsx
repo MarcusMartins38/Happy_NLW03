@@ -66,7 +66,6 @@ export default function Orphanage() {
   const formatUrl = (url: string) => {
     const splittedUrl = url.split('3333');
     const newUrl = 'http://localhost:3333'+splittedUrl[1];
-    console.log(newUrl);
     return newUrl;
   }
 
