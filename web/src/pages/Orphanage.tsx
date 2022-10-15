@@ -8,9 +8,6 @@ import Sidebar from "../components/Sidebar";
 import { mapIcon, mapIconAsylum } from "../utils/mapIcon";
 import api from "../services/api";
 import { useParams } from "react-router-dom";
-import { IState } from "../store";
-import { UserData } from "../store/modules/user/types";
-import { useSelector } from "react-redux";
 import { donationItems } from "./CreateOrphanage/CreateOrphanage.constants";
 
 interface ItemsProps {
@@ -22,7 +19,7 @@ interface Orphanage {
   latitude: number;
   longitude: number;
   about: string;
-  instruction: string;
+  instructions: string;
   opening_hours: string;
   open_on_weekends: boolean;
   images: {
@@ -39,8 +36,6 @@ interface OrphanageParams {
 }
 
 export default function Orphanage() {
-  const userData = useSelector<IState, UserData>((state) => state.userReducer);
-
   const params = useParams<OrphanageParams>();
   const [orphanage, setOrphanage] = useState<Orphanage>();
   const [activeImageIndex, setActiveImageIndex] = useState(0);
@@ -190,7 +185,7 @@ export default function Orphanage() {
             <hr />
 
             <h2>Instruções para visita</h2>
-            <p>{orphanage.instruction}</p>
+            <p>{orphanage.instructions}</p>
 
             <div className="open-details">
               <div className="hour">

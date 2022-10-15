@@ -25,13 +25,16 @@ const MyRegisterOrphanages: React.FC = () => {
   }, []);
 
   return (
-    <div className="myregisterorphanages-page">
+    <div>
       <Sidebar />
+      <h2>Instituições que Registrei</h2>
+    <div className="myregisterorphanages-page">
       <div className="card-container">
         {orphanages.map((orphanage) => (
           <OrphanageCard key={orphanage.id} orphanage={orphanage} />
         ))}
       </div>
+    </div>
     </div>
   );
 };

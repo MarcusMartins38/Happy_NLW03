@@ -1,3 +1,10 @@
+h2 {
+  padding-top: 12px;
+  margin-left: 12%;
+  color: #4d6f80;
+  font-size: 32px;
+}
+
 .myregisterorphanages-page {
   display: flex;
 }

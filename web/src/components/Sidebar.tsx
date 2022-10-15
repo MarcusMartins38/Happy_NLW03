@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FiArrowLeft, FiMapPin, FiMap, FiPower, FiPlus } from "react-icons/fi";
+import { GiHamburgerMenu } from "react-icons/gi";
 import { NavLink, useHistory } from "react-router-dom";
 
 import mapMarkerImg from "../images/map-marker.svg";
@@ -41,7 +42,10 @@ const Sidebar: React.FC<SidebarProps> = ({ signOut = false }) => {
 
       <div className="menu-nav">
         <NavLink to="/map" activeStyle={{ background: "#FFD666" }}>
-          <FiMap size={24} color={path === "/map" ? "#00BBE0" : "#FFF"} />
+          <FiMapPin
+              size={24}
+              color={path === "/map" ? "#00BBE0" : "#FFF"}
+          />
         </NavLink>
 
         {token && (
@@ -50,9 +54,9 @@ const Sidebar: React.FC<SidebarProps> = ({ signOut = false }) => {
             to="/registerOrphanages"
             activeStyle={{ background: "#FFD666" }}
             >
-            <FiMapPin
-              size={24}
-              color={path === "/registerOrphanages" ? "#00BBE0" : "#FFF"}
+              <GiHamburgerMenu
+                size={24}
+                color={path === "/registerOrphanages" ? "#00BBE0" : "#FFF"}
               />
           </NavLink>
           <NavLink to="/orphanages-create" activeStyle={{ background: "#FFD666" }}>
