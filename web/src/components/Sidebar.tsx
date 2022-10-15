@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FiArrowLeft, FiMapPin, FiMap, FiPower } from "react-icons/fi";
+import { FiArrowLeft, FiMapPin, FiMap, FiPower, FiPlus } from "react-icons/fi";
 import { NavLink, useHistory } from "react-router-dom";
 
 import mapMarkerImg from "../images/map-marker.svg";
@@ -45,15 +45,20 @@ const Sidebar: React.FC<SidebarProps> = ({ signOut = false }) => {
         </NavLink>
 
         {token && (
+          <>
           <NavLink
             to="/registerOrphanages"
             activeStyle={{ background: "#FFD666" }}
-          >
+            >
             <FiMapPin
               size={24}
               color={path === "/registerOrphanages" ? "#00BBE0" : "#FFF"}
-            />
+              />
           </NavLink>
+          <NavLink to="/orphanages-create" activeStyle={{ background: "#FFD666" }}>
+            <FiPlus size={32} color={path === "/orphanages-create" ? "#00BBE0" : "#FFF"} />
+          </NavLink>
+          </>
         )}
       </div>
 
