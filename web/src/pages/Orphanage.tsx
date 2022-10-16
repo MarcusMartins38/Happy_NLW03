@@ -166,7 +166,7 @@ export default function Orphanage() {
 
             <div className="input-block">
               <label htmlFor="institute_type">Items necessitados</label>
-              <h2>Items de maior necessidade</h2>
+              <h2>Itens de maior necessidade</h2>
 
               <div className="donation-items">
                 {donationItems.map((item) => (

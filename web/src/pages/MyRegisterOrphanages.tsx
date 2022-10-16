@@ -27,7 +27,7 @@ const MyRegisterOrphanages: React.FC = () => {
   return (
     <div>
       <Sidebar />
-      <h2>Instituições que Registrei</h2>
+      <h2 className="myregisterorphanages-title">Instituições que Registrei</h2>
     <div className="myregisterorphanages-page">
       <div className="card-container">
         {orphanages.map((orphanage) => (

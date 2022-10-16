@@ -24,7 +24,12 @@ export default function CreateOrphanage() {
   const [name, setName] = useState("");
   const [about, setAbout] = useState("");
   const [instructions, setInstructions] = useState("");
-  const [opening_hours, setOpening_hours] = useState("");
+
+  const [hoursOpen, setHoursOpen] = useState("");
+  const [hoursClose, setHoursClose] = useState("");
+  const [minutesOpen, setMinutesOpen] = useState("");
+  const [minutesClose, setMinutesClose] = useState("");
+
   const [open_on_weekends, setOpen_on_weekends] = useState(true);
   const [institute_type, setInstitute_type] = useState("orphanage");
   const [images, setImages] = useState<File[]>([]);
@@ -64,13 +69,14 @@ export default function CreateOrphanage() {
       const { latitude, longitude } = position;
 
       const data = new FormData();
+      const formatHours = hoursOpen+":"+minutesOpen+"h ás "+hoursClose+":"+minutesClose+"h";
 
       data.append("name", name);
       data.append("about", about);
       data.append("latitude", String(latitude));
       data.append("longitude", String(longitude));
       data.append("instructions", instructions);
-      data.append("opening_hours", opening_hours);
+      data.append("opening_hours", formatHours);
       data.append("open_on_weekends", String(open_on_weekends));
       data.append("institute_type", institute_type);
       data.append("phone_number", phone_number);
@@ -224,12 +230,47 @@ export default function CreateOrphanage() {
 
             <div className="input-block">
               <label htmlFor="opening_hours">Horario de Abertura</label>
+
+            </div>
+            <div style={{ margin: '8px 0px 16px 0px'}}>
+            <input
+                id="opening_hours"
+                value={hoursOpen}
+                onChange={(e) => setHoursOpen(e.target.value)}
+                type="number"
+                max={23}
+                min={0}
+              />
               <input
                 id="opening_hours"
-                value={opening_hours}
-                onChange={(e) => setOpening_hours(e.target.value)}
+                value={minutesOpen}
+                onChange={(e) => setMinutesOpen(e.target.value)}
+                type="number"
+                max={60}
+                min={0}
+                step={5}
               />
-            </div>
+          </div>
+          <span style={{ color: "black"}}>ás</span>
+          <div style={{ margin: '8px 0px 16px 0px'}}>
+            <input
+                id="opening_hours"
+                value={hoursClose}
+                onChange={(e) => setHoursClose(e.target.value)}
+                type="number"
+                max={23}
+                min={0}
+              />
+              <input
+                id="opening_hours"
+                value={minutesClose}
+                onChange={(e) => setMinutesClose(e.target.value)}
+                type="number"
+                max={60}
+                min={0}
+                step={5}
+              />
+          </div>
 
             <div className="input-block">
               <label htmlFor="open_on_weekends">Atende fim de semana</label>

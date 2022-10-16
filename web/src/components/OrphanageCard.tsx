@@ -46,9 +46,10 @@ const OrphanageCard: React.FC<DataProps> = ({ orphanage }) => {
         <footer>
           <span>{orphanage.name}</span>
           <div className="footer-icons">
-            <button>
+            {/* <button>
               <FiEdit3 size={20} color="#15C3D6" />
-            </button>
+            </button> */}
+            <span/>
             <Link to={`/registerOrphanages/remove/${orphanage.id}`}>
               <FiTrash size={20} color="#15C3D6" />
             </Link>
