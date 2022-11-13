@@ -25,10 +25,10 @@ export default function CreateOrphanage() {
   const [about, setAbout] = useState("");
   const [instructions, setInstructions] = useState("");
 
-  const [hoursOpen, setHoursOpen] = useState("");
-  const [hoursClose, setHoursClose] = useState("");
-  const [minutesOpen, setMinutesOpen] = useState("");
-  const [minutesClose, setMinutesClose] = useState("");
+  const [hoursOpen, setHoursOpen] = useState("00");
+  const [hoursClose, setHoursClose] = useState("00");
+  const [minutesOpen, setMinutesOpen] = useState("00");
+  const [minutesClose, setMinutesClose] = useState("00");
 
   const [open_on_weekends, setOpen_on_weekends] = useState(true);
   const [institute_type, setInstitute_type] = useState("orphanage");
@@ -36,6 +36,7 @@ export default function CreateOrphanage() {
   const [previewImages, setPreviewImages] = useState<string[]>([]);
   const [items, setItemsToDonation] = useState<string[]>([]);
   const [phone_number, setPhone_number] = useState("");
+  const [pix_keys, setPixKeys] = useState("");
 
   function handleMapClick(event: LeafletMouseEvent) {
     const { lat, lng } = event.latlng;
@@ -80,6 +81,7 @@ export default function CreateOrphanage() {
       data.append("open_on_weekends", String(open_on_weekends));
       data.append("institute_type", institute_type);
       data.append("phone_number", phone_number);
+      data.append("pix_keys", pix_keys);
 
       items.forEach((item) => data.append("items", item));
       images.forEach((image) => data.append("images", image));
@@ -213,6 +215,13 @@ export default function CreateOrphanage() {
                   </div>
                 ))}
               </div>
+
+              <label htmlFor="name">Chave Pix</label>
+              <input
+                id="name"
+                value={pix_keys}
+                onChange={(e) => setPixKeys(e.target.value)}
+              />
             </div>
           </fieldset>
 

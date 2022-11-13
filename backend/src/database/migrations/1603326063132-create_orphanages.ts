@@ -57,6 +57,11 @@ export class createOrphanages1603326063132 implements MigrationInterface {
             isNullable: true,
           },
           {
+            name: "pix_keys",
+            type: "varchar",
+            isNullable: true,
+          },
+          {
             name: "user_id",
             type: "uuid",
           },

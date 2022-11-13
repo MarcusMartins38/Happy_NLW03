@@ -29,6 +29,7 @@ interface Orphanage {
   institute_type: string;
   items: ItemsProps[];
   phone_number?: string;
+  pix_keys?: string;
 }
 
 interface OrphanageParams {
@@ -164,7 +165,7 @@ export default function Orphanage() {
               </div>
             </div>
 
-            <div className="input-block">
+            <div className="input-block" id="input-necessities">
               <label htmlFor="institute_type">Items necessitados</label>
               <h2>Itens de maior necessidade</h2>
 
@@ -180,6 +181,8 @@ export default function Orphanage() {
                   </div>
                 ))}
               </div>
+
+              <p><strong>Chave Pix:</strong> {orphanage.pix_keys ? orphanage.pix_keys : "Nenhuma chave pix cadastrada"}</p>
             </div>
 
             <hr />

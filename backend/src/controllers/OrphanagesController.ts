@@ -41,6 +41,7 @@ export default {
       institute_type,
       items,
       phone_number,
+      pix_keys,
     } = request.body;
 
     const user_id = request.user.id;
@@ -73,8 +74,8 @@ export default {
       images,
       items: formatItems,
       phone_number,
+      pix_keys,
     };
-    console.log(data);
 
     const schema = Yup.object().shape({
       name: Yup.string().required(),
@@ -86,7 +87,8 @@ export default {
       open_on_weekends: Yup.boolean().required(),
       institute_type: Yup.string().required(),
       phone_number: Yup.string(),
-      items: Yup.array(),
+      pix_keys: Yup.string(),
+      items: Yup.string(),
       images: Yup.array(
         Yup.object().shape({
           path: Yup.string().required(),

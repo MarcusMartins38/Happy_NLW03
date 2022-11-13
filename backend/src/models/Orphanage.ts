@@ -55,6 +55,9 @@ export default class Orphanage {
   @Column()
   phone_number: string;
 
+  @Column()
+  pix_keys: string;
+
   @OneToMany(() => Items, (item) => item.orphanage, {
     cascade: ["insert", "update"],
   })

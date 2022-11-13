@@ -251,3 +251,11 @@
   background-color: #edfff6;
   border: 1px solid #a1e9c5;
 }
+
+#input-necessities p {
+  font-size: 20px;
+}
+
+#input-necessities p strong {
+  font-size: 24px;
+}
