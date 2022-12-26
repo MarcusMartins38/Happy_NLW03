@@ -29,7 +29,7 @@ const RemoveOrphanage: React.FC = () => {
 
   async function handleRemoveButton() {
     await api.delete(`/user/orphanages/${Number(params.id)}`);
-    alert("Orfanato Excluido");
+    alert("Instituição Excluida");
     history.goBack();
   }
 
